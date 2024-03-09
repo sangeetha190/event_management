@@ -4,6 +4,8 @@ use App\Http\Controllers\Backend\Auth\AssignRoleToUserController;
 use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\Auth\RoleController;
 use App\Http\Controllers\Backend\Auth\UserController;
+use App\Http\Controllers\Backend\Product\CategoryController;
+use App\Http\Controllers\Backend\Product\SubCategoryController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LoginController as FrontendLoginController;
 use Illuminate\Support\Facades\Auth;
@@ -37,6 +39,8 @@ Route::prefix('frontend')->group(function () {
     Route::post('/register', [FrontendLoginController::class, "store"])->name('frontend_register.create');
     Route::get('/logout', [FrontendLoginController::class, 'logout'])->name('frontend_login.logout');
 });
+
+
 
 
 // admin login
@@ -82,4 +86,25 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('assign_role/edit/{id}', [AssignRoleToUserController::class, 'edit'])->name('assign_role.edit');
     Route::post('assign_role/update/{id}', [AssignRoleToUserController::class, 'update'])->name('assign_role.update');
     Route::get('assign_role/delete/{id}', [AssignRoleToUserController::class, 'delete'])->name('assign_role.delete');
+
+    // Product Management
+    Route::prefix('category')->group(function () {
+        Route::get('/index', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('/edit/{id}', [CategoryController::class, 'edit_page'])->name('category.edit_page');
+        Route::post('/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+        Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+    });
+
+
+    // sub Category
+    Route::prefix('sub_category')->group(function () {
+        Route::get('/index', [SubCategoryController::class, 'index'])->name('sub_category.index');
+        Route::get('/create', [SubCategoryController::class, 'create'])->name('sub_category.create');
+        Route::post('/store', [SubCategoryController::class, 'store'])->name('sub_category.store');
+        Route::get('/edit/{id}', [SubCategoryController::class, 'edit_page'])->name('sub_category.edit_page');
+        Route::post('/update/{id}', [SubCategoryController::class, 'update'])->name('sub_category.update');
+        // Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+    });
 });

@@ -85,6 +85,24 @@
                     </li>
                 @endhasrole
                 {{-- test starts --}}
+                {{-- Product Management --}}
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class="bx bx-user-circle"></i></div>
+                        <div class="menu-title">Product Management</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{ route('category.index') }}"><i class="bx bx-radio-circle"></i>Category</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('sub_category.index') }}"><i class="bx bx-radio-circle"></i>Child
+                                Category</a>
+                        </li>
+
+                    </ul>
+                </li>
+                {{-- Product Management --}}
             </ul>
             <!--end navigation-->
         </div>
@@ -447,6 +465,8 @@
     <script src="{{ asset('admin/assets/js/app.js') }}"></script>
     <!-- own Js -->
     <script src="{{ asset('admin/assets/js/own.js') }}"></script>
+    {{-- animation icon CDN --}}
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
     <script>
         new PerfectScrollbar(".app-container");
     </script>
