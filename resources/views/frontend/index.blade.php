@@ -4,6 +4,8 @@
     <!-- end slider section -->
     <!-- why section -->
     {{-- done kjk --}}
+
+
     @include('frontend.why')
     <!-- end why section -->
 
