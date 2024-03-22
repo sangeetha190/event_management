@@ -3,7 +3,7 @@
     @include('frontend.slider')
     <!-- end slider section -->
     <!-- why section -->
-    {{-- done kjk b --}}
+    {{-- done kjk b  dd--}}
 
 
     @include('frontend.why')
