@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Backend\Admin\AdminContoller;
 use App\Http\Controllers\Backend\Auth\AssignRoleToUserController;
 use App\Http\Controllers\Backend\Auth\LoginController;
 use App\Http\Controllers\Backend\Auth\RoleController;
 use App\Http\Controllers\Backend\Auth\UserController;
+use App\Http\Controllers\Backend\Order\OrderContoller;
 use App\Http\Controllers\Backend\Product\CategoryController;
+use App\Http\Controllers\Backend\Product\ProductContoller;
 use App\Http\Controllers\Backend\Product\SubCategoryController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LoginController as FrontendLoginController;
@@ -22,24 +25,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/dashboard', function () {
-    $user = Auth::user(); // Get the currently authenticated user
-    return view('admin.dashboard', ['user' => $user]);
-})->name('dashboard');
+// Route::get('/dashboard', function () {
+//     $user = Auth::user(); // Get the currently authenticated user
+//     return view('admin.dashboard', ['user' => $user]);
+// })->name('dashboard');
+
+Route::get('/dashboard', [AdminContoller::class, "admin_dashboard"])->name('dashboard');
 Route::get('/sample', function () {
     return view('admin.Role Management.sample');
 });
 // Route::get('/', [LoginController::class, "index"])->name('login.index');
 Route::get('/', [HomeController::class, "index"])->name('home.index');
+Route::get('/products/{product}', [HomeController::class, "show_single_product"])->name('frontend_product.show');
+Route::post('/add-to-cart', [HomeController::class, "addToCart"])->name('cart.add');
+Route::get('/show_cart', [HomeController::class, "show_Cart"])->name('show_cart.add');
+Route::get('/show_cart_remove/{id}', [HomeController::class, "show_Cart_remove"])->name('show_cart.remove');
+Route::get('/cash_on_delivery', [HomeController::class, "cash_on_delivery"])->name('cash_on_delivery');
+Route::get('/stripe/{totalPrice}', [HomeController::class, "stripe"])->name('stripe');
+Route::post('stripe/{totalPrice}', [HomeController::class, "stripePost"])->name('stripe.post');
+// order
+Route::get('show_order', [HomeController::class, "show_order"])->name('show_order.index');
+Route::get('cancel_order/{id}', [HomeController::class, "cancel_order"])->name('cancel_order.index');
+
+//comment
+Route::post('add_comment', [HomeController::class, "add_comment"])->name('add_comment.post');
+Route::post('add_reply', [HomeController::class, "add_reply"])->name('add_reply.post');
+
+// search
+Route::get('product_search', [HomeController::class, "product_search"])->name('product.search');
+// Product
+Route::get('products', [HomeController::class, "products"])->name('all_product.index');
+Route::get('search_product', [HomeController::class, "search_product"])->name('search.product');
 // Frontend login
 Route::prefix('frontend')->group(function () {
-    Route::get('/login', [FrontendLoginController::class, "index"])->name('frontend_login.index');
+    Route::get('/login', [FrontendLoginController::class, "index"])->name('frontend_login.index')->middleware('guest');
     Route::post('/login', [FrontendLoginController::class, "postLogin"])->name('frontend_login.login');
     Route::get('/register', [FrontendLoginController::class, "register"])->name('frontend_register.index');
     Route::post('/register', [FrontendLoginController::class, "store"])->name('frontend_register.create');
     Route::get('/logout', [FrontendLoginController::class, 'logout'])->name('frontend_login.logout');
 });
-
 
 
 
@@ -88,6 +112,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('assign_role/delete/{id}', [AssignRoleToUserController::class, 'delete'])->name('assign_role.delete');
 
     // Product Management
+    // category
     Route::prefix('category')->group(function () {
         Route::get('/index', [CategoryController::class, 'index'])->name('category.index');
         Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
@@ -106,5 +131,22 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
         Route::get('/edit/{id}', [SubCategoryController::class, 'edit_page'])->name('sub_category.edit_page');
         Route::post('/update/{id}', [SubCategoryController::class, 'update'])->name('sub_category.update');
         // Route::get('/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+    });
+
+    Route::prefix('product')->group(function () {
+        Route::get('/index', [ProductContoller::class, 'index'])->name('product.index');
+        Route::get('/create', [ProductContoller::class, 'create'])->name('product.create');
+        Route::post('/store', [ProductContoller::class, 'store'])->name('product.store');
+        Route::get('/edit/{id}', [ProductContoller::class, 'edit_page'])->name('product.edit_page');
+        Route::post('/update/{id}', [ProductContoller::class, 'update'])->name('product.update');
+        Route::get('/delete/{id}', [ProductContoller::class, 'delete'])->name('product.delete');
+    });
+    Route::prefix('order')->group(function () {
+        Route::get('/index', [OrderContoller::class, 'index'])->name('order.index');
+        Route::get('/delivered/{id}', [OrderContoller::class, 'delivered'])->name('delivered.index');
+        Route::get('/print_pdf/{id}', [OrderContoller::class, 'print_pdf'])->name('print_pdf.index');
+        Route::get('/send_mail/{id}', [OrderContoller::class, 'send_mail'])->name('send_mail.index');
+        Route::post('/send_email_user/{id}', [OrderContoller::class, 'send_email_user'])->name('send_email.user');
+        Route::get('/search', [OrderContoller::class, 'search_data'])->name('search_data.index');
     });
 });

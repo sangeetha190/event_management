@@ -66,10 +66,16 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // dd("Check check");
             // Authentication was successful
-            return redirect()->route('home.index');
+            // return redirect()->route('home.index');
+
+            // Retrieve the intended URL from the session
+            $intendedUrl = session('url.intended', '/');
+
+            // Redirect to the intended URL or a default URL
+            return redirect()->to($intendedUrl);
         } else {
             // Authentication failed
-            return redirect()->route('frontend.Auth.login')->with('error', 'Invalid credentials');
+            return redirect()->route('frontend.Auth.login')->with('message', 'Invalid credentials');
         }
     }
     public function logout()

@@ -17,14 +17,15 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, string ...$guards): Response
     {
-        $guards = empty($guards) ? [null] : $guards;
-
+        // Check if the user is already authenticated for each guard
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // If the user is authenticated, redirect them to the appropriate page
+                // For example, redirect to 'home.index' or another dashboard route
+                return redirect()->route('home.index');
             }
         }
-
+        // If the user is not authenticated, allow the request to continue
         return $next($request);
     }
 }

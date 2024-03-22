@@ -1,19 +1,45 @@
 @extends('frontend.layouts.index')
 @section('content')
-    @include('frontend.slider')
-    <!-- end slider section -->
-    <!-- why section -->
-    @include('frontend.why')
-    <!-- end why section -->
-
-    <!-- arrival section -->
-    @include('frontend.arrival')
-    <!-- end arrival section -->
-
-    <!-- product section -->
+    {{-- <!-- product section -->
     @include('frontend.product')
-    <!-- end product section -->
+    <!-- end product section --> --}}
+    {{-- Product starts --}}
+    <section class="product_section layout_padding">
+        <div class="container">
+            {{-- search starts --}}
+            <form action="{{ route('search.product') }}" method="GET">
+                @csrf
+                <input type="text" name="search" placeholder="Search for something..." />
+                <button class="btn btn-danger">search</button>
+            </form>
+            {{-- search Ends --}}
+            <div class="container mb-5">
+                <div class="row">
+                    @foreach ($products as $product)
+                        <div class="col-md-4 mt-3">
+                            <a href="{{ route('frontend_product.show', ['product' => $product->id]) }}">
+                                <div class="card h-100">
+                                    <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top"
+                                        alt="{{ $product->name }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $product->name }}</h5>
+                                        <p class="card-text">Price: ${{ $product->price }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
 
+            <div class="btn-box">
+                <a href="">
+                    View All products
+                </a>
+            </div>
+        </div>
+    </section>
+    {{-- Product Ends --}}
     {{-- Comment Starts --}}
     <div class="container">
         <x-alert />
@@ -21,7 +47,8 @@
         <div class="text-center" id="commentSection">
             <form action="{{ route('add_comment.post') }}" method="POST">
                 @csrf
-                <textarea name="comment" class="mb-1" placeholder="Comment something here" style="width:600px;min-height:50px !important"></textarea>
+                <textarea name="comment" class="mb-1" placeholder="Comment something here"
+                    style="width:600px;min-height:50px !important"></textarea>
                 <div class="mt-0">
                     <button type="submit" class="btn btn-primary">Comment</button>
                 </div>
@@ -98,10 +125,4 @@
             sessionStorage.setItem('scrollpos', window.scrollY);
         });
     </script>
-    <!-- subscribe section -->
-    @include('frontend.subscribe')
-    <!-- end subscribe section -->
-    <!-- client section -->
-    @include('frontend.client')
-    <!-- end client section -->
 @endsection

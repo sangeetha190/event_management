@@ -35,9 +35,9 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary">Total Orders</p>
-                                    <h4 class="my-1 text-info">4805</h4>
-                                    <p class="mb-0 font-13">+2.5% from last week</p>
+                                    <p class="mb-0 text-secondary">Total Products</p>
+                                    <h4 class="my-1 text-info">{{ $total_product }}</h4>
+                                    <p class="mb-0 font-13">Last week updates</p>
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-blues text-white ms-auto">
                                     <i class="bx bxs-cart"></i>
@@ -51,9 +51,9 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary">Total Revenue</p>
-                                    <h4 class="my-1 text-danger">$84,245</h4>
-                                    <p class="mb-0 font-13">+5.4% from last week</p>
+                                    <p class="mb-0 text-secondary">Total Orders</p>
+                                    <h4 class="my-1 text-danger">{{ $total_order }}</h4>
+                                    <p class="mb-0 font-13">Last week updates</p>
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-burning text-white ms-auto">
                                     <i class="bx bxs-wallet"></i>
@@ -67,8 +67,8 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary">Bounce Rate</p>
-                                    <h4 class="my-1 text-success">34.6%</h4>
+                                    <p class="mb-0 text-secondary">Total Users</p>
+                                    <h4 class="my-1 text-success">{{ $total_user }}</h4>
                                     <p class="mb-0 font-13">-4.5% from last week</p>
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
@@ -83,8 +83,8 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <p class="mb-0 text-secondary">Total Customers</p>
-                                    <h4 class="my-1 text-warning">8.4K</h4>
+                                    <p class="mb-0 text-secondary">Total Revenue</p>
+                                    <h4 class="my-1 text-warning">{{ $total_revenue }}</h4>
                                     <p class="mb-0 font-13">+8.4% from last week</p>
                                 </div>
                                 <div class="widgets-icons-2 rounded-circle bg-gradient-orange text-white ms-auto">
@@ -94,6 +94,40 @@
                         </div>
                     </div>
                 </div>
+                <div class="col">
+                    <div class="card radius-10 border-start border-0 border-4 border-warning">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <p class="mb-0 text-secondary">Order Delivered</p>
+                                    <h4 class="my-1 text-warning">{{ $total_delivered }}</h4>
+                                    <p class="mb-0 font-13">+8.4% from last week</p>
+                                </div>
+                                <div class="widgets-icons-2 rounded-circle bg-gradient-orange text-white ms-auto">
+                                    <i class="bx bxs-group"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card radius-10 border-start border-0 border-4 border-success">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <p class="mb-0 text-secondary">Order Processing</p>
+                                    <h4 class="my-1 text-success">{{ $total_processing }}</h4>
+                                    <p class="mb-0 font-13">-4.5% from last week</p>
+                                </div>
+                                <div class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
+                                    <i class="bx bxs-bar-chart-alt-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!--end row-->
 

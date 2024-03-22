@@ -30,6 +30,7 @@
 </head>
 
 <body>
+    {{-- @include('sweetalert::alert') --}}
     {{-- <div class="hero_area"> --}}
     {{-- header starts --}}
     @include('frontend.header')

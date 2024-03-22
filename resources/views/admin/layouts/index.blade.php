@@ -86,7 +86,7 @@
                 @endhasrole
                 {{-- test starts --}}
                 {{-- Product Management --}}
-                <li>
+                {{-- <li>
                     <a href="javascript:;" class="has-arrow">
                         <div class="parent-icon"><i class="bx bx-user-circle"></i></div>
                         <div class="menu-title">Product Management</div>
@@ -100,9 +100,65 @@
                                 Category</a>
                         </li>
 
+                    </ul> --}}
+
+                <li>
+                    <a class="has-arrow" href="javascript:;">
+                        <div class="parent-icon"><i class="bx bx-menu"></i>
+                        </div>
+                        <div class="menu-title">Product Management</div>
+                    </a>
+                    <ul>
+                        <li> <a class="has-arrow" href="javascript:;"><i class='bx bx-radio-circle'></i>Category</a>
+                            <ul>
+                                <li>
+                                    <a href="{{ route('category.index') }}"><i class="bx bx-radio-circle"></i>Add
+                                        Category</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li>
+                            {{-- <a class="has-arrow" href="javascript:;"><i class='bx bx-radio-circle'></i>Level One</a> --}}
+                            <a class="has-arrow" href="javascript:;"><i class="bx bx-radio-circle"></i>Child
+                                Category</a>
+                            <ul>
+                                <li> <a href="{{ route('sub_category.index') }}"><i class='bx bx-radio-circle'></i>Add
+                                        Child Category</a>
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li> <a class="has-arrow" href="javascript:;"><i class='bx bx-radio-circle'></i>Product</a>
+                            <ul>
+                                <li>
+                                    <a href="{{ route('product.index') }}"><i class="bx bx-radio-circle"></i>Add
+                                        Product</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
+
                 {{-- Product Management --}}
+                {{-- Order Management --}}
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class="bx bx-user-circle"></i></div>
+                        <div class="menu-title">Order Management</div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="{{ route('order.index') }}"><i class="bx bx-radio-circle"></i>All Orders</a>
+                        </li>
+                    </ul>
+                </li>
+                {{-- Order Management --}}
             </ul>
             <!--end navigation-->
         </div>
